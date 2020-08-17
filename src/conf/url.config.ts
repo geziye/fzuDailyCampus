@@ -5,3 +5,4 @@ export const SUBMIT_FORM_URL = `https://${host}/wec-counselor-collector-apps/stu
 export const DETAIL_COLLECTOR_URL = `https://${host}/wec-counselor-collector-apps/stu/collector/detailCollector`
 export const QUERY_COLLECTOR_PROCESSING_LISTV_URL = `https://${host}/wec-counselor-collector-apps/stu/collector/queryCollectorProcessingList`
 export const GET_FORM_FIELDS_URL = `https://${host}/wec-counselor-collector-apps/stu/collector/getFormFields`
+export const GET_MY_SIGN_URL = `https://${host}/wec-counselor-sign-apps/stu/sign/getMySignInProgress`

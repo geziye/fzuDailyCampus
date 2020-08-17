@@ -22,7 +22,6 @@ import {
   FormResponseData,
   FormRow
 } from './interface/response.interface'
-import { SUBMIT_FORM_URL } from './conf/url.config'
 
 const { headers, api, custom } = config
 const { defaults, address } = custom
@@ -123,6 +122,7 @@ const submitForm = async (
   collectWid: string,
   schoolTaskWid: string,
 ) => {
+  const { SUBMIT_FORM_URL } = api
   const res = await axios.post(SUBMIT_FORM_URL, {
     form,
     formWid,

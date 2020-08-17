@@ -3,6 +3,7 @@
  * @description 请求反馈信息接口
  */
 
+// detailCollector 返回信息接口
 export interface DetailCollectorCollector {
   wid: string;
   formWid: string;
@@ -33,14 +34,13 @@ export interface DetailCollectorDatas {
   form: DetailCollectorForm;
 }
 
-// 通过 collectorWid 获取详情信息的返回数据接口
 export interface DetailCollectorResponseData {
   code: string;
   message: string;
   datas: DetailCollectorDatas;
 }
 
-// 以下为 queryCollector 接口的返回type
+// 以下为 queryCollector 返回信息的接口
 export interface queryCollectorRow {
 	wid: string;
 	formWid: string;
@@ -67,7 +67,7 @@ export interface queryCollectorResponseData {
 	datas: queryCollectorData;
 }
 
-// 以下为获取表单的type
+// 以下为获取表单的返回信息的接口
 // filedType
 // 1 -> 级联选择 or 文本框  value -> 福建省/福州市/鼓楼区
 // 2 -> 单选框 filedItems -> isSelected 标记
@@ -105,3 +105,41 @@ export interface FormResponseData {
 	message: string;
 	datas: FormData;
 }
+
+// 以下为获取每日签到返回信息的接口 getMySign
+export interface GetMySignRow {
+	wid: string;
+	taskName: string;
+	taskDescUrl: string;
+	currentTime?: any;
+	signinStartTime: string;
+	signinEndTime: string;
+	isPhoto: number;
+	isConfirmed?: any;
+	photoRequireDesc?: any;
+	signPlaceSelected: any[];
+	signPhotoUrl: string;
+	operatorId: string;
+	operatorName: string;
+	createTime: string;
+	signStatus: number;
+	signTime?: any;
+	signType?: any;
+	downloadUrl?: any;
+	isVersionLow?: any;
+	leaveAppUrl?: any;
+}
+
+export interface GetMySignData {
+	totalSize: number;
+	pageSize: number;
+	pageNumber: number;
+	rows: GetMySignRow[];
+}
+
+export interface GetMySignResponseData {
+	code: string;
+	message: string;
+	datas: GetMySignData;
+}
+	
