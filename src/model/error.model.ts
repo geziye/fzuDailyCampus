@@ -39,6 +39,16 @@ export const keepAliveFailInfo = {
   message: '登录cookie保活失败'
 }
 
+export const getSignInfoFailInfo = {
+  errno: '10008',
+  message: '获取今日签到信息失败'
+}
+
+export const submitSignInfoFailInfo = {
+  errno: '10009',
+  message: '今日校园签到失败'
+}
+
 export const unknowndError = {
   errno: '99999',
   message: '发生了未知错误，请联系代码作者'

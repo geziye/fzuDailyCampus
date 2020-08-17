@@ -5,39 +5,39 @@
 
 // detailCollector 返回信息接口
 export interface DetailCollectorCollector {
-  wid: string;
-  formWid: string;
-  priority: string;
-  endTime: string;
-  currentTime: string;
-  schoolTaskWid: string;
-  isConfirmed: number;
-  senderUserName: string;
-  createTime: string;
-  attachmentUrls?: any;
-  attachmentNames?: any;
-  attachmentSizes?: any;
-  isUserSubmit: number;
-  fetchStuLocation: boolean;
-  address?: any;
+	wid: string;
+	formWid: string;
+	priority: string;
+	endTime: string;
+	currentTime: string;
+	schoolTaskWid: string;
+	isConfirmed: number;
+	senderUserName: string;
+	createTime: string;
+	attachmentUrls?: any;
+	attachmentNames?: any;
+	attachmentSizes?: any;
+	isUserSubmit: number;
+	fetchStuLocation: boolean;
+	address?: any;
 }
 export interface DetailCollectorForm {
-  wid: string;
-  formTitle: string;
-  formContent: string;
-  backReason?: any;
-  isBack: number;
-  attachments: any[];
+	wid: string;
+	formTitle: string;
+	formContent: string;
+	backReason?: any;
+	isBack: number;
+	attachments: any[];
 }
 export interface DetailCollectorDatas {
-  collector: DetailCollectorCollector;
-  form: DetailCollectorForm;
+	collector: DetailCollectorCollector;
+	form: DetailCollectorForm;
 }
 
 export interface DetailCollectorResponseData {
-  code: string;
-  message: string;
-  datas: DetailCollectorDatas;
+	code: string;
+	message: string;
+	datas: DetailCollectorDatas;
 }
 
 // 以下为 queryCollector 返回信息的接口
@@ -106,40 +106,40 @@ export interface FormResponseData {
 	datas: FormData;
 }
 
-// 以下为获取每日签到返回信息的接口 getMySign
-export interface GetMySignRow {
-	wid: string;
+// 以下为获取每日签到返回信息的接口 getSignInfo
+
+export interface GetSignInfoUnSignedTask {
+	stuSignWid: string;
+	signInstanceWid: string;
+	signWid: string;
+	signRate: string;
+	taskType: string;
 	taskName: string;
-	taskDescUrl: string;
-	currentTime?: any;
-	signinStartTime: string;
-	signinEndTime: string;
-	isPhoto: number;
-	isConfirmed?: any;
-	photoRequireDesc?: any;
-	signPlaceSelected: any[];
-	signPhotoUrl: string;
-	operatorId: string;
-	operatorName: string;
-	createTime: string;
-	signStatus: number;
-	signTime?: any;
-	signType?: any;
-	downloadUrl?: any;
-	isVersionLow?: any;
-	leaveAppUrl?: any;
+	senderUserName: string;
+	signStatus: string;
+	isMalposition?: any;
+	isLeave: string;
+	leavePcUrl?: any;
+	leaveMobileUrl?: any;
+	currentTime: string;
+	singleTaskBeginTime?: any;
+	singleTaskEndTime?: any;
+	rateSignDate: string;
+	rateTaskBeginTime: string;
+	rateTaskEndTime: string;
 }
 
-export interface GetMySignData {
-	totalSize: number;
-	pageSize: number;
-	pageNumber: number;
-	rows: GetMySignRow[];
+export interface GetSignInfoDatas {
+	dayInMonth: string;
+	codeRcvdTasks: any[];
+	signedTasks: any[];
+	unSignedTasks: GetSignInfoUnSignedTask[];
+	leaveTasks: any[];
 }
 
-export interface GetMySignResponseData {
+export interface GetSignInfoResponseData {
 	code: string;
 	message: string;
-	datas: GetMySignData;
+	datas: GetSignInfoDatas;
 }
-	
+

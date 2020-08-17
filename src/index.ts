@@ -22,6 +22,7 @@ import {
   FormResponseData,
   FormRow
 } from './interface/response.interface'
+import mail from './util/mail'
 
 const { headers, api, custom } = config
 const { defaults, address } = custom
@@ -106,6 +107,7 @@ const fillForm = async (form: FormRow[]) => {
             }
             return false
           })
+          break;
         default:
           return new ErrorModel(formTypeNotExpected)
       }
@@ -149,6 +151,7 @@ const bootstrap = async () => {
     const getFromData = await getFormWidAndCollectorWid()
     if (getFromData.errno !== '0') {
       console.error(getFromData)
+      mail({ text: getFromData.message })
       return
     }
     console.log('正在获取问卷详情信息')
@@ -156,6 +159,7 @@ const bootstrap = async () => {
     const getSchoolData = await getSchoolTaskWid(collectorWid)
     if (getSchoolData.errno !== '0') {
       console.error(getSchoolData)
+      mail({ text: getSchoolData.message })
       return
     }
     const { schoolTaskWid } = getSchoolData.data
@@ -163,6 +167,7 @@ const bootstrap = async () => {
     const getFormData = await getFormInfo(formWid, collectorWid)
     if (getFormData.errno !== '0') {
       console.error(getFormData)
+      mail({ text: getFormData.message })
       return
     }
     const { form } = getFormData.data
@@ -170,6 +175,7 @@ const bootstrap = async () => {
     const fillFormData = await fillForm(form)
     if (fillFormData.errno !== '0') {
       console.error(fillFormData)
+      mail({ text: fillFormData.message })
       return
     }
     const { submitForm: formData } = fillFormData.data
@@ -177,13 +183,17 @@ const bootstrap = async () => {
     const submitFormData = await submitForm(formData, formWid, collectorWid, schoolTaskWid)
     if (submitFormData.errno !== '0') {
       console.error(submitFormData)
+      mail({ text: submitFormData.message })
       return
     }
     console.log('表单完成提交. 提交成功')
+    mail({ text: '表单完成提交, 提交成功!'})
   } catch (ex) {
+    mail({ text: '表单提交失败'})
     console.error(ex.message, ex.stack)
     console.error(new ErrorModel(unknowndError))
   }
 }
 
 bootstrap()
+

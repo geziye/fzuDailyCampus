@@ -8,15 +8,27 @@ export interface campusConfig {
   Cookie: string              // 抓包得到
   address: string             // 定位的地址
   defaults: dailyCampusFormValue[] // 默认填写的title和值
+  abnormalReason: string      // 每日签到的不在的原因 (例如不在校)
+  longitude: string           // 位置的经度 (对应address的经纬度)
+  latitude: string            // 位置的纬度
+  isMalposition: number        // 0 -> 在学校 1 -> 不在学校
+  userEmail: string           // 填你的qq邮箱
+  emailSecret: string         // qq邮箱授权密钥
 }
 
 const config: campusConfig = {
+  'emailSecret': '',
+  'userEmail': '',
+  'abnormalReason': '不在校',
+  'longitude': '',
+  'latitude': '',
+  'isMalposition': 1,
   'host': 'fzu.cpdaily.com',
-  'address': '地址',
-  'Cookie': 'cookie',
+  'address': '',
+  'Cookie': '',
   'defaults': [{
     title: '今日所在位置',
-    value: '福建省/福州市/鼓楼区'
+    value: '福建省/福州市/晋安区'
   }, {
     title: '昨日午检体温',
     value: '小于37.3度'
