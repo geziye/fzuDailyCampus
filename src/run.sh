@@ -5,5 +5,5 @@ if [ ! -f "/usr/include/campus_daily/log/$log_name" ]; then
 fi
 current_time=$(date  "+%Y_%m_%d_%H_%M_%S")
 echo $current_time >> /usr/include/campus_daily/log/$log_name
-ts-node --compiler typescript --project /usr/include/campus_daily/tsconfig.json  /usr/include/campus_daily/src/index.ts >> /usr/include/campus_daily/log/$log_name
+cd /usr/include/campus_daily/ && /usr/local/nodejs/bin/ts-node ./src/index.ts>> /usr/include/campus_daily/log/$log_name
 echo -e >> /usr/include/campus_daily/log/$log_name

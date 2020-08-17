@@ -12,8 +12,8 @@ export interface campusConfig {
 
 const config: campusConfig = {
   'host': 'fzu.cpdaily.com',
-  'address': '在这里填你的住址,可以参考一下今日校园签到的那个反馈信息',
-  'Cookie': '填写抓包填的cookie',
+  'address': '地址',
+  'Cookie': 'cookie',
   'defaults': [{
     title: '今日所在位置',
     value: '福建省/福州市/鼓楼区'

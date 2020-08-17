@@ -56,6 +56,8 @@
    vim /etc/profile
    // 在末尾追加以下内容
    export PATH="$PATH:/usr/local/nodejs/bin"
+   // 使生效
+   source /etc/profile
    
    ln -s /usr/local/nodejs/bin/node /usr/local/bin
    ln -s /usr/local/nodejs/bin/npm /usr/local/bin
@@ -68,11 +70,19 @@
    ```
    mkdir campus_daily
    cd campus_daily
+   mkdir log
    // 这里把文件放进去~ 可以通过xftp
+   cd src
+   vim run.sh
+   // 命令行敲入 (这里的话windows下是doc, linux要运行的话要改为unix)
+   set ff=unix
    npm config set registry https://registry.npm.taobao.org
    npm install -g typescript
    npm install -g ts-node
+   npm install
    echo -e "export PATH=$(npm prefix -g)/bin:$PATH" >> ~/.bashrc && source ~/.bashrc
+   ln -s /usr/local/nodejs/bin/node /usr/bin
+   ln -s /usr/local/nodejs/bin/npm /usr/bin
    ```
 
 5. 用linux自带的crontab设置定时任务, 在里面输入这些东西，注意路径会因为上面放的路径不同而不同,为了进程保活，大概30分钟用原来的cookie去请求，保证是保活的 
