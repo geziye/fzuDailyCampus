@@ -33,7 +33,6 @@ export interface DetailCollectorDatas {
 	collector: DetailCollectorCollector;
 	form: DetailCollectorForm;
 }
-
 export interface DetailCollectorResponseData {
 	code: string;
 	message: string;
@@ -91,7 +90,6 @@ export interface FormRow {
 	isDecimal: boolean;
 	fieldItems: any[];
 }
-
 export interface FormData {
 	totalSize: number;
 	pageSize: number;
@@ -99,7 +97,6 @@ export interface FormData {
 	existData: number;
 	rows: FormRow[];
 }
-
 export interface FormResponseData {
 	code: string;
 	message: string;
@@ -107,7 +104,6 @@ export interface FormResponseData {
 }
 
 // 以下为获取每日签到返回信息的接口 getSignInfo
-
 export interface GetSignInfoUnSignedTask {
 	stuSignWid: string;
 	signInstanceWid: string;
@@ -128,7 +124,6 @@ export interface GetSignInfoUnSignedTask {
 	rateTaskBeginTime: string;
 	rateTaskEndTime: string;
 }
-
 export interface GetSignInfoDatas {
 	dayInMonth: string;
 	codeRcvdTasks: any[];
@@ -136,10 +131,128 @@ export interface GetSignInfoDatas {
 	unSignedTasks: GetSignInfoUnSignedTask[];
 	leaveTasks: any[];
 }
-
 export interface GetSignInfoResponseData {
 	code: string;
 	message: string;
 	datas: GetSignInfoDatas;
 }
 
+export interface QrCodeRcvdUser {
+	targetWid: string;
+	targetType: string;
+	targetName: string;
+	targetGrade: string;
+	targetDegree: string;
+	targetUserType: string;
+}
+
+export interface SignPlaceSelected {
+	wid?: any;
+	placeWid?: any;
+	address: string;
+	longitude: string;
+	latitude: string;
+	radius: number;
+	creatorUserWid?: any;
+	creatorUserId?: any;
+	creatorName?: any;
+	currentStatus?: any;
+	isShare?: any;
+}
+
+export interface StuDormitoryVo {
+	area: string;
+	building: string;
+	unit: string;
+	room: string;
+	sex: string;
+}
+
+export interface ExtraFieldItemVo {
+	fieldIndex: number;
+	extraTitle: string;
+	extraDesc: string;
+	extraFieldItemWid: string;
+	extraFieldItem?: any;
+	isExtraFieldOtherItem: string;
+	isAbnormal: string;
+}
+
+export interface SignedStuInfo {
+	userWid: string;
+	userId: string;
+	userName: string;
+	sex: string;
+	nation: string;
+	mobile?: any;
+	grade: string;
+	dept: string;
+	major: string;
+	cls: string;
+	schoolStatus?: any;
+	malposition?: any;
+	stuDormitoryVo: StuDormitoryVo;
+	extraFieldItemVos: ExtraFieldItemVo[];
+}
+
+export interface ExtraFieldItem {
+	content: string;
+	wid: number;
+	isOtherItems: number;
+	value?: any;
+	isSelected?: any;
+	isAbnormal: boolean;
+}
+
+export interface ExtraField {
+	wid: number;
+	title: string;
+	description: string;
+	hasOtherItems: number;
+	extraFieldItems: ExtraFieldItem[];
+}
+
+export interface detailSignInstanceDatas {
+	signInstanceWid: string;
+	signMode: number;
+	signRate: string;
+	signCondition: number;
+	taskType: string;
+	taskName: string;
+	taskDesc: string;
+	qrCodeRcvdUsers: QrCodeRcvdUser[];
+	senderUserName: string;
+	currentTime: string;
+	singleTaskBeginTime?: any;
+	singleTaskEndTime?: any;
+	rateSignDate: string;
+	rateTaskBeginTime: string;
+	rateTaskEndTime: string;
+	signStatus: string;
+	signTime?: any;
+	signPhotoUrl?: any;
+	signType?: any;
+	changeTime?: any;
+	changeActorName: string;
+	signPlaceSelected: SignPlaceSelected[];
+	isPhoto: number;
+	photograph: any[];
+	downloadUrl: string;
+	leaveAppUrl: string;
+	catQrUrl: string;
+	signAddress?: any;
+	longitude: string;
+	latitude: string;
+	isMalposition: number;
+	signedStuInfo: SignedStuInfo;
+	isNeedExtra: number;
+	isAllowUpdate: boolean;
+	extraField: ExtraField[];
+	extraFieldItemVos: any[];
+}
+
+export interface detailSignInstanceData {
+	code: string;
+	message: string;
+	datas: detailSignInstanceDatas;
+}

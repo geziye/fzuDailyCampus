@@ -10,7 +10,8 @@ import {
 } from './model/error.model'
 import { SuccessModel, ErrorModel } from './model/res.model'
 import {
-  GetSignInfoResponseData
+  GetSignInfoResponseData,
+  detailSignInstanceData
 } from './interface/response.interface'
 import mail from './util/mail'
 
@@ -34,19 +35,46 @@ const getSignInfo = async () => {
   return new SuccessModel({ signWid, signInstanceWid })
 }
 
-const submitSignInfo = async (signInstanceWid: number) => {
-  const { SUBMIT_SIGN_URL } = api
-  const res = await axios.post(SUBMIT_SIGN_URL, {
-    position: address,
+const getDetailSignInstance = async (signInstanceWid: number, signWid: number) => {
+  const { DETAIL_SIGN_INSTANCE_URL } = api
+  const res = await axios.post(DETAIL_SIGN_INSTANCE_URL, {
     signInstanceWid,
+    signWid
+  }, { headers })
+  const data: detailSignInstanceData = res.data
+  const { datas } = data
+  const { isNeedExtra, extraField } = datas
+  if (isNeedExtra !== 1) {
+    return new SuccessModel('没有需要额外填写的项目')
+  }
+  const extraFieldItemValues = []
+  extraField.forEach(field => {
+    const { extraFieldItems } = field
+    const { wid, content } = extraFieldItems[0]
+    const extraFieldItemValue = {
+      extraFieldItemValue: content,
+      extraFieldItemWid: wid
+    }
+    extraFieldItemValues.push(extraFieldItemValue)
+  })
+  return new SuccessModel({ extraFieldItemValues })
+}
+
+const submitSignInfo = async (signInstanceWid: string, extraFieldItems: any) => {
+  const { SUBMIT_SIGN_URL } = api
+  const form = {
+    position: address,
+    signInstanceWid: parseInt(signInstanceWid),
     longitude,
     latitude,
-    isMalposition,
+    isMalposition: 0,
     abnormalReason,
-    signPhotoUrl: ''
-  }, { headers })
+    extraFieldItems
+  }
+  console.log(form)
+  const res = await axios.post(SUBMIT_SIGN_URL, form, { headers })
   const data = res.data
-  console.log(data.message)
+  console.log(data)
   if (data.message === 'SUCCESS') {
     return new SuccessModel('表单提交成功')
   }
@@ -58,18 +86,25 @@ const bootstrap = async () => {
   const getSignInfoData = await getSignInfo()
   if (getSignInfoData.errno !== '0') {
     console.error('获取签到信息失败')
-    mail({ text: getSignInfoData.message })
+    // mail({ text: getSignInfoData.message })
     return
   }
-  const { signInstanceWid } = getSignInfoData.data
-  const submitSignInfoData = await submitSignInfo(signInstanceWid)
+  const { signInstanceWid, signWid } = getSignInfoData.data
+  const detailSignInstanceData = await getDetailSignInstance(signInstanceWid, signWid)
+  if (detailSignInstanceData.errno !== '0') {
+    console.error('获取签到详情信息失败')
+    // mail({ text: detailSignInstanceData.message })
+    return
+  }
+  const { extraFieldItemValues } = detailSignInstanceData.data
+  const submitSignInfoData = await submitSignInfo(signInstanceWid, extraFieldItemValues)
   if (submitSignInfoData.errno !== '0') {
     console.error('今日校园签到失败')
-    mail({ text: submitSignInfoData.message })
+    // mail({ text: submitSignInfoData.message })
     return
   }
   console.log('自动化每日签到完成')
-  mail({ text: '自动化每日签到完成' })
+  // mail({ text: '自动化每日签到完成' })
 }
 
 bootstrap()
