@@ -21,7 +21,7 @@ const { address, abnormalReason, isMalposition, longitude, latitude } = custom
 
 const getSignInfo = async () => {
   const { GET_SIGN_INFO_URL } = api
-  const res = await axios.post(GET_SIGN_INFO_URL, { pageNumber: 1, pageSize: 2 }, { headers })
+  const res = await axios.post(GET_SIGN_INFO_URL, {}, { headers })
   const data: GetSignInfoResponseData = res.data
   const { code, datas } = data
   if (code !== '0') {
@@ -86,25 +86,25 @@ const bootstrap = async () => {
   const getSignInfoData = await getSignInfo()
   if (getSignInfoData.errno !== '0') {
     console.error('获取签到信息失败')
-    // mail({ text: getSignInfoData.message })
+    mail({ text: getSignInfoData.message })
     return
   }
   const { signInstanceWid, signWid } = getSignInfoData.data
   const detailSignInstanceData = await getDetailSignInstance(signInstanceWid, signWid)
   if (detailSignInstanceData.errno !== '0') {
     console.error('获取签到详情信息失败')
-    // mail({ text: detailSignInstanceData.message })
+    mail({ text: detailSignInstanceData.message })
     return
   }
   const { extraFieldItemValues } = detailSignInstanceData.data
   const submitSignInfoData = await submitSignInfo(signInstanceWid, extraFieldItemValues)
   if (submitSignInfoData.errno !== '0') {
     console.error('今日校园签到失败')
-    // mail({ text: submitSignInfoData.message })
+    mail({ text: submitSignInfoData.message })
     return
   }
   console.log('自动化每日签到完成')
-  // mail({ text: '自动化每日签到完成' })
+  mail({ text: '自动化每日签到完成' })
 }
 
 bootstrap()

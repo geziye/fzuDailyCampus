@@ -7,5 +7,6 @@ export default {
   'User-Agent': 'Mozilla/5.0 (Linux; Android 4.4.4; OPPO R11 Plus Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Safari/537.36 okhttp/3.12.4',
   'Connection': 'Keep-Alive',
   'CpdailyStandAlone': '0',
-  'extension': '1'
+  'extension': '1',
+  'X-Requested-With': 'XMLHttpRequest'
 }

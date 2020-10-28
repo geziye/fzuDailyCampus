@@ -25,7 +25,7 @@ const config: campusConfig = {
   'longitude': '119.203150',
   'latitude': '26.062701',
   'isMalposition': 0,
-  'host': 'fzu.cpdaily.com',
+  'host': 'fzu.campusphere.net',
   'address': '福州大学第二田径场',
   'Cookie': '',
   'defaults': []
